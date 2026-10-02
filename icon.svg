@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#0f172a" rx="110"/>
+  
+  <!-- Smooth Kettlebell Handle -->
+  <path d="M 186 260 C 186 120 326 120 326 260" fill="none" stroke="#f8fafc" stroke-width="40" stroke-linecap="round"/>
+  
+  <!-- Smooth Kettlebell Body -->
+  <circle cx="256" cy="320" r="120" fill="#10b981"/>
+  
+  <!-- Minimalist Weight Indicator -->
+  <circle cx="256" cy="320" r="40" fill="#0f172a" opacity="0.1"/>
+  <text x="256" y="340" font-family="-apple-system, sans-serif" font-weight="800" font-size="50" fill="#0f172a" text-anchor="middle">Fe</text>
+</svg>
