@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iron Tracker</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root {
+      --bg: #0f172a;       /* Deep slate blue */
+      --card: #1e293b;     /* Slightly lighter slate for cards */
+      --accent: #10b981;   /* Mint green */
+      --accent-soft: rgba(16, 185, 129, 0.2);
+      --coral: #fb7185;    /* Soft coral for contrast */
+      --text: #f8fafc;     /* Soft white */
+      --muted: #94a3b8;    /* Slate gray */
+    }
+    
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      max-width: 600px; 
+      margin: 0 auto; 
+      padding: 15px; 
+      background-color: var(--bg); 
+      color: var(--text);
+    }
+    
+    h2 { 
+      font-size: 2.2em;
+      text-align: center; 
+      color: var(--text); 
+      margin-bottom: 25px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    h2 span { color: var(--accent); }
+    
+    .card {
+      background: var(--card);
+      padding: 25px;
+      border-radius: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    label { 
+      font-weight: 600; 
+      font-size: 0.9em; 
+      display: block; 
+      margin-top: 15px; 
+      margin-bottom: 8px; 
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    input, select, textarea { 
+      width: 100%; padding: 16px; font-size: 1.1em; font-weight: 500;
+      border-radius: 16px; border: 2px solid transparent; box-sizing: border-box; 
+      background: #334155; color: var(--text); margin-bottom: 10px;
+      transition: all 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus { 
+      outline: none; 
+      border-color: var(--accent); 
+      background: #1e293b;
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    button { 
+      width: 100%; background-color: var(--accent); color: #000; border: none; 
+      padding: 18px; font-size: 1.2em; font-weight: 800; border-radius: 16px; 
+      margin-top: 20px; cursor: pointer;
+      box-shadow: 0 4px 14px 0 var(--accent-soft); transition: all 0.2s;
+    }
+    button:active { transform: translateY(2px); box-shadow: none; }
+    
+    .btn-export { 
+      background-color: transparent; 
+      color: var(--coral);
+      border: 2px solid var(--coral);
+      box-shadow: none;
+      margin-top: 10px;
+    }
+    .btn-export:active { background-color: var(--coral); color: #000; }
+
+    .history-card { 
+      background: #334155; padding: 16px; border-radius: 16px; 
+      margin-top: 12px; font-size: 0.95em; line-height: 1.5;
+      border-left: 4px solid var(--accent);
+    }
+    .history-card span.date { color: var(--muted); font-size: 0.85em; display: block; margin-bottom: 5px; font-weight: 600;}
+    .history-card span.data { font-weight: 700; color: white; font-size: 1.1em;}
+  </style>
+</head>
+<body>
+
+  <h2>Iron<span>Tracker</span></h2>
+
+  <div class="card">
+    <label>Date</label>
+    <input type="date" id="logDate">
+
+    <!-- Smart Search Box using datalist -->
+    <label>Movement (Type to Search)</label>
+    <input type="text" id="logExercise" list="exerciseList" placeholder="e.g., Armor Building Complex" autocomplete="off">
+    <datalist id="exerciseList">
+      <option value="Armor Building Complex"></option>
+      <option value="Half Snatch"></option>
+      <option value="Single Arm Clean"></option>
+      <option value="Strict Press Ladder"></option>
+      <option value="Half Kneeling Press"></option>
+      <option value="Single Arm Floor Press"></option>
+      <option value="Goblet Squat"></option>
+      <option value="Two-Hand Swing / KB Swing"></option>
+      <option value="Dead Stop Swing"></option>
+      <option value="Single Arm Row"></option>
+      <option value="Single Leg RDL"></option>
+      <option value="KB Suitcase Deadlift"></option>
+      <option value="Arm Bar"></option>
+      <option value="Windmill"></option>
+      <option value="KB Flow Complex"></option>
+      <option value="Sandbag Box Squat"></option>
+      <option value="Sandbag Clean and Press"></option>
+      <option value="Sandbag Clean to Shoulder"></option>
+      <option value="Sandbag Shouldering"></option>
+      <option value="Sandbag Rotational Slam"></option>
+      <option value="Sandbag Glute Bridge"></option>
+      <option value="Farmer Carry"></option>
+      <option value="Suitcase Carry"></option>
+      <option value="Front Rack Carry"></option>
+      <option value="KB Overhead Carry"></option>
+      <option value="Bottoms-Up KB Carry"></option>
+      <option value="Sandbag Bear Hug Carry"></option>
+      <option value="Sandbag Suitcase Carry"></option>
+      <option value="Sandbag Shouldered Carry"></option>
+      <option value="Offset Sandbag Carry"></option>
+      <option value="Bear Crawl"></option>
+      <option value="Crab Walk"></option>
+      <option value="Duck Walk"></option>
+      <option value="Leopard Crawl"></option>
+      <option value="Dead Hang"></option>
+      <option value="Unassisted Pull-Up"></option>
+      <option value="Unassisted Chin-Up"></option>
+      <option value="Band Assisted Pull-Up"></option>
+      <option value="Eccentric Pull-Up"></option>
+      <option value="Scapular Pull-Up"></option>
+      <option value="Ring Row"></option>
+      <option value="Ring Dip"></option>
+      <option value="Ring Support Hold"></option>
+      <option value="Push-Up Variation"></option>
+      <option value="Pike Push-Up"></option>
+      <option value="Cossack Squat"></option>
+      <option value="Poliquin Step-Up"></option>
+      <option value="Single Leg Calf Raise"></option>
+      <option value="Nordic Hamstring Curl"></option>
+      <option value="Ab Wheel Rollout"></option>
+      <option value="Hanging Knee Raise"></option>
+      <option value="Mace 360s"></option>
+      <option value="Mills / Circles"></option>
+      <option value="Shield Casts"></option>
+      <option value="Plate Pinch"></option>
+      <option value="Wrist Roller"></option>
+      <option value="Towel Hang"></option>
+      <option value="Grip Finisher"></option>
+      <option value="Neck CARs"></option>
+      <option value="Neck Isometric Hold"></option>
+      <option value="Ankle CARs"></option>
+      <option value="Foot Doming"></option>
+      <option value="Single Leg Balance"></option>
+      <option value="Band Pull-Apart"></option>
+      <option value="Face Pull"></option>
+      <option value="Box Breathing"></option>
+      <option value="Jump Rope - Intervals"></option>
+      <option value="Jump Rope - Skill Practice"></option>
+      <option value="Rucking"></option>
+      <option value="Heavy Ruck"></option>
+    </datalist>
+
+    <label>Equipment</label>
+    <select id="logEquipment">
+      <option value="Double Kettlebells">Double Kettlebells</option>
+      <option value="Single Kettlebell">Single Kettlebell</option>
+      <option value="Handleless Sandbag">Handleless Sandbag</option>
+      <option value="Wooden Heavy Mace">Wooden Heavy Mace (Gada)</option>
+      <option value="Heavy Club">Heavy Club</option>
+      <option value="Pull-Up Bar">Pull-Up Bar</option>
+      <option value="Gymnastics Rings">Gymnastics Rings</option>
+      <option value="Resistance Band">Resistance Band</option>
+      <option value="Jump Rope">Jump Rope</option>
+      <option value="Rucksack">Rucksack</option>
+      <option value="Bodyweight">Bodyweight</option>
+    </select>
+
+    <div class="grid-3">
+      <div>
+        <label>Weight</label>
+        <input type="text" id="logWeight" placeholder="e.g. 24kg">
+      </div>
+      <div>
+        <label>Sets/Rounds</label>
+        <input type="number" id="logSets" placeholder="0" inputmode="numeric">
+      </div>
+      <div>
+        <label>Reps</label>
+        <input type="number" id="logReps" placeholder="0" inputmode="numeric">
+      </div>
+    </div>
+
+    <label>Notes</label>
+    <textarea id="logNotes" rows="2" placeholder="Effort 1-10, EMOM timing, form notes..."></textarea>
+
+    <button id="saveBtn" onclick="saveWorkout()">Log Workout</button>
+  </div>
+
+  <div class="card">
+    <button class="btn-export" onclick="exportCSV()">📥 Export to Excel</button>
+    <label style="margin-top: 25px;">Recent History</label>
+    <div id="historyLog"></div>
+  </div>
+
+  <script>
+    document.getElementById('logDate').valueAsDate = new Date();
+    let workouts = JSON.parse(localStorage.getItem('ironTrackerData')) || [];
+
+    function saveWorkout() {
+      let ex = document.getElementById('logExercise').value;
+      if (!ex) return alert("Please select or type a movement.");
+
+      const entry = {
+        id: Date.now(),
+        date: document.getElementById('logDate').value,
+        exercise: ex,
+        equipment: document.getElementById('logEquipment').value,
+        weight: document.getElementById('logWeight').value || '-',
+        sets: document.getElementById('logSets').value || '-',
+        reps: document.getElementById('logReps').value || '-',
+        notes: document.getElementById('logNotes').value.replace(/,/g, ' ') 
+      };
+
+      workouts.unshift(entry); 
+      localStorage.setItem('ironTrackerData', JSON.stringify(workouts));
+      
+      document.getElementById('logSets').value = '';
+      document.getElementById('logReps').value = '';
+      document.getElementById('logNotes').value = '';
+
+      let btn = document.getElementById('saveBtn');
+      btn.innerText = "✓ Logged!";
+      setTimeout(() => btn.innerText = "Log Workout", 1500);
+
+      renderHistory();
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('historyLog');
+      container.innerHTML = '';
+      const recent = workouts.slice(0, 5);
+      
+      recent.forEach(w => {
+        let card = document.createElement('div');
+        card.className = 'history-card';
+        card.innerHTML = `
+          <span class="date">${w.date}</span>
+          ${w.exercise} <span style="color:var(--muted)">via</span> ${w.equipment}<br>
+          <span class="data">${w.sets}x${w.reps} @ ${w.weight}</span>
+          ${w.notes ? `<br><small style="color:var(--muted); font-style:italic;">"${w.notes}"</small>` : ''}
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function exportCSV() {
+      if (workouts.length === 0) return alert("No workouts to export yet!");
+
+      // Added the "Data Breakdown" column at the end
+      let csvContent = "Date,Movement,Equipment,Weight,Sets/Rounds,Reps,Notes,Data Breakdown\n";
+      
+      workouts.forEach(w => {
+        let breakdown = "-";
+        
+        // The Expansion Engine logic for complexes
+        if (w.exercise.toLowerCase().includes("armor building complex") && !isNaN(w.sets)) {
+          let rounds = parseInt(w.sets);
+          if (rounds > 0) {
+            breakdown = `${rounds * 2} Cleans | ${rounds * 1} Presses | ${rounds * 3} Front Squats`;
+          }
+        }
+        
+        csvContent += `${w.date},${w.exercise},${w.equipment},${w.weight},${w.sets},${w.reps},${w.notes},${breakdown}\n`;
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute("href", url);
+      link.setAttribute("download", "Iron_Tracker_Export.csv");
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    renderHistory();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
+
